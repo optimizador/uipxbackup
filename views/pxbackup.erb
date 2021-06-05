@@ -1,0 +1,210 @@
+<%def money(num)
+  "$#{num.gsub(/\d(?=(...)+$)/, '\0,')}"
+end
+%>
+<p>Vamos a dimensionar la solución de respaldos para tú clúster de Kubernetes/Openshift, llena los parámetros de configuración</p>
+
+<p>
+<form action="/regresar" method="get">
+<button type="submit"> <-- Regresar </button>
+</form>
+</p>
+<p style="font-style: italic;">
+NOTAS:<br>
+*Los precios lista que se presentarán son calculados y pueden variar respecto a los presentados en IBM Cloud en +-1%<br>
+**Para procesos de special bid es requerido obtener los precios lista desde cloud.ibm.com<br>
+</p>
+
+<form action="/respuesta" method="get">
+
+<table style="width:100%" align="left">
+  <tr>
+    <th bgcolor="#00008B" style="color: white; width:100%" colspan="3">Parámetros Respaldos PX-Backup</th>
+  </tr>
+<tr>
+  <td style="width:50%">
+
+      <!-- tabla parametros del respaldo-->
+    <table style="width:100%" align="left">
+      <tr>
+        <th bgcolor="#00008B" style="color: white;">Parámetro</th>
+        <th bgcolor="#00008B" style="color: white;">Valor</th>
+      </tr>
+      <tr>
+        <td>Volumen a respaldar entre Persistent Volumes y archivos YAML(GB): </td>
+        <td><input type="number" id="almacenamientogb" name="almacenamientogb"></td>
+      </tr>
+      <tr>
+        <td>Región Solución de Respaldos: </td>
+        <td><select name="regioncluster" id="regioncluster">
+          <option value="mexico">México</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td>Región Almacenamiento de Respaldos: </td>
+        <td><select name="countryrespaldo" id="countryrespaldo">
+          <option value="mexico">México</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td>Resiliencia del respaldo: </td>
+        <td><select name="resiliencybackup" id="resiliencybackup">
+          <option value="single">Single Region</option>
+        </select></td>
+      </tr>
+      </table>
+    </td>
+
+
+    <td coolspan="2" style="width:60%">
+      <table style="width:100%" align="left">
+      <tr>
+        <td colspan="2" bgcolor="#00008B" style="color: white;">Políticas de Respaldo</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+
+          <table style="width:100%" align="left">
+            <tr>
+              <th bgcolor="#00008B" style="color: white;">Tipo Respaldo</th>
+              <th bgcolor="#00008B" style="color: white;">Incluir</th>
+              <th bgcolor="#00008B" style="color: white;">Máximo de respaldos dentro de un mes</th>
+            </tr>
+            <tr>
+              <td>Semanal</td>
+                <td>
+                  <input type="checkbox" name="rsemanal" id="rsemanal" value=true>Si<br>
+                  </td>
+              <td>
+                <input type="number" id="rsemanalretencion" name="rsemanalretencion">
+              </td>
+            </tr>
+            <tr>
+              <td>Diarios</td>
+              <td>
+                <input type="checkbox" name="rdiario" id="rdiario" value=true>Si<br>
+                </td>
+              <td>
+                <input type="number" id="rdiarioretencion" name="rdiarioretencion">
+              </td>
+            </tr>
+            <tr>
+              <td>Mensuales</td>
+              <td>
+                <input type="checkbox" name="rmensual" id="rmensual" value=true>Si<br>
+                </td>
+              <td>
+                <input type="number" id="rmensualretencion" name="rmensualretencion">
+              </td>
+            </tr>
+            <tr>
+              <td>Anuales</td>
+              <td>
+                <input type="checkbox" name="ranual" id="ranual" value=true>Si<br>
+                </td>
+              <td>
+                <input type="number" id="ranualretencion" name="ranualretencion">
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </td>
+
+</table>
+
+
+
+<p>
+<button type="submit">Quiero mi dimensionamiento</button>
+</p>
+
+
+
+</form>
+<!--%=respuestasizing%-->
+<% if (respuestasizing != nil and respuestasizing.size>0) then%>
+<!--%=respuestasizing %-->
+
+<h3>Precio Total de la Solución</h3>
+<table  style="width:100%" align="left">
+  <thead>
+    <tr>
+      <th bgcolor="#00008B" style="color: white;">Precio Total</th>
+      <th ><i><%= respuestasizing[4]["preciototal"].to_s %></i></th>
+    </tr>
+  </thead>
+</table>
+<p> <br></p>
+<h3>Cálculo de Almacenamiento para Respaldos</h3>
+
+<table  style="width:100%" align="left">
+  <thead>
+    <tr>
+      <th bgcolor="#00008B" style="color: white;">Almacenamiento Requerido (GB)</th>
+      <th bgcolor="#00008B" style="color: white;">Almacenamiento Requerido Comprimido (GB) Ratio 2.5:1</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= respuestasizing[0]["volumentotalgb"].to_s %></td>
+        <td><%= respuestasizing[0]["volumentotalcomprimidogb"].to_s %></td>
+      </tr>
+  </tbody>
+</table>
+
+<h3>Clúster IKS para solución de respaldos</h3>
+<table  style="width:100%" align="left">
+  <thead>
+    <tr>
+      <th bgcolor="#00008B" style="color: white;">Tipo Worker Node</th>
+      <th bgcolor="#00008B" style="color: white;">Tipo Infraestructura</th>
+      <th bgcolor="#00008B" style="color: white;">Workers</th>
+      <th bgcolor="#00008B" style="color: white;">Región</th>
+      <th bgcolor="#00008B" style="color: white;">Precio</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= respuestasizing[1]["flavor"].to_s %></td>
+        <td><%= respuestasizing[1]["infra_type"].to_s %></td>
+        <td><%= respuestasizing[1]["workers"].to_s %></td>
+        <td><%= respuestasizing[1]["region"].to_s %></td>
+        <td><%= respuestasizing[1]["precio"].to_s %></td>
+      </tr>
+  </tbody>
+</table>
+
+<h3>Sizing Almacenamiento de Objetos</h3>
+<table  style="width:100%" align="left">
+  <thead>
+    <tr>
+      <th bgcolor="#00008B" style="color: white;">Precio</th>
+      <th bgcolor="#00008B" style="color: white;">Nota</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td width=20%><%= respuestasizing[3]["precio"].to_s %></td>
+        <td><%= respuestasizing[3]["nota"].to_s %></td>
+      </tr>
+  </tbody>
+</table>
+
+<h3>Sizing PX-Backup</h3>
+<table  style="width:100%" align="left">
+  <thead>
+    <tr>
+      <th bgcolor="#00008B" style="color: white;">Workers Node</th>
+      <th bgcolor="#00008B" style="color: white;">Precio</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= respuestasizing[2]["workers"].to_s %></td>
+        <td><%= respuestasizing[2]["precio"].to_s %></td>
+      </tr>
+  </tbody>
+</table>
+<% end %>
