@@ -59,8 +59,8 @@ get '/respuesta' do
   resiliencybackup ="#{params['resiliencybackup']}"
 
   @name = "PX-Backup"
-  #urlapi="https://apis.9sxuen7c9q9.us-south.codeengine.appdomain.cloud"
-  urlapi="http://localhost:8080"
+  urlapi="https://apis.9sxuen7c9q9.us-south.codeengine.appdomain.cloud"
+  #urlapi="http://localhost:8080" 
 
   #parametros recibidos
   respuestasizing = RestClient.get "#{urlapi}/api/lvl2/pxbackupsol?almacenamientogb=#{almacenamientogb}&rsemanal=#{rsemanal}&rsemanalretencion=#{rsemanalretencion}&rdiario=#{rdiario}&rdiarioretencion=#{rdiarioretencion}&rmensual=#{rmensual}&rmensualretencion=#{rmensualretencion}&ranual=#{ranual}&ranualretencion=#{ranualretencion}&regioncluster=#{regioncluster}&countryrespaldo=#{countryrespaldo}&resiliencybackup=#{resiliencybackup}", {:params => {}}
