@@ -10,6 +10,54 @@ set(:cookie_options) do
   { :expires => Time.now + 30*60 }
 end
 
+#************
+#Copiar y actualizar en cada módulo
+# ***Adaptar para que no se reescriban las rutas del módulo en particular donde se despliegue
+#************
+get '/cp4d' do
+  redirect "https://ui.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/cp4d?"
+  #redirect "http://localhost:8090"
+end
+
+get '/' do
+  logger = Logger.new(STDOUT)
+  logger.info(request)
+  #@name = "Pedro"
+  response.set_cookie("llave", value: "valor")
+  erb :index
+
+end
+get '/uiga' do
+  redirect "https://ui-ga.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/uiga"
+  #redirect "http://localhost:8090"
+end
+get '/loganalysis' do
+  redirect "https://ui-monitoring.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/VATLA?"
+  #redirect "http://localhost:8090"
+end
+
+get '/monitoring' do
+  redirect "https://ui-monitoring.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/VLG?"
+  #redirect "http://localhost:8090"
+end
+
+#get '/pxbackup' do
+#  redirect "https://pxbackup.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/"
+  #redirect "http://localhost:8090"
+#end
+get '/iks' do
+  redirect "https://iks-ocp.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/iks"
+end
+get '/ocp' do
+  redirect "https://iks-ocp.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/ocp"
+end
+get '/cr' do
+  redirect "https://ui-cr.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/"
+end
+#************
+#Fin Copiar y actualizar en cada módulo
+#************
+
 get '/' do
   logger = Logger.new(STDOUT)
   logger.info("Selecciono dimensionamiento para solución de respaldos")
@@ -60,7 +108,7 @@ get '/respuesta' do
 
   @name = "PX-Backup"
   urlapi="https://apis.9sxuen7c9q9.us-south.codeengine.appdomain.cloud"
-  #urlapi="http://localhost:8080" 
+  #urlapi="http://localhost:8080"
 
   #parametros recibidos
   respuestasizing = RestClient.get "#{urlapi}/api/lvl2/pxbackupsol?almacenamientogb=#{almacenamientogb}&rsemanal=#{rsemanal}&rsemanalretencion=#{rsemanalretencion}&rdiario=#{rdiario}&rdiarioretencion=#{rdiarioretencion}&rmensual=#{rmensual}&rmensualretencion=#{rmensualretencion}&ranual=#{ranual}&ranualretencion=#{ranualretencion}&regioncluster=#{regioncluster}&countryrespaldo=#{countryrespaldo}&resiliencybackup=#{resiliencybackup}", {:params => {}}
