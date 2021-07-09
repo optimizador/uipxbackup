@@ -18,15 +18,6 @@ get '/cp4d' do
   redirect "https://ui.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/cp4d?"
   #redirect "http://localhost:8090"
 end
-
-get '/' do
-  logger = Logger.new(STDOUT)
-  logger.info(request)
-  #@name = "Pedro"
-  response.set_cookie("llave", value: "valor")
-  erb :index
-
-end
 get '/uiga' do
   redirect "https://ui-ga.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/uiga"
   #redirect "http://localhost:8090"
