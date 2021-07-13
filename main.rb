@@ -18,6 +18,9 @@ get '/cp4d' do
   redirect "https://ui.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/cp4d?"
   #redirect "http://localhost:8090"
 end
+get '/uidl' do
+  redirect "https://ui-ga.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/uidl"
+end
 get '/uiga' do
   redirect "https://ui-ga.9sxuen7c9q9.us-south.codeengine.appdomain.cloud/uiga"
   #redirect "http://localhost:8090"
