@@ -1,3 +1,5 @@
 # config.ru
 require './main'
-run Sinatra::Application 
+require 'rack/protection'
+disable :protection
+run Sinatra::Application
