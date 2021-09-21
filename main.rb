@@ -96,6 +96,7 @@ get '/pxbackupyentrespuesta' do
     "regioncluster: "+"#{params['regioncluster']}"+
     "almacenamientogb:"+"#{params['almacenamientogb']}"+
     "countryrespaldo: "+"#{params['countryrespaldo']}"+
+    "diff: "+"#{params['diff']}"+
     "resiliencybackup:"+"#{params['resiliencybackup']}")
 
 
@@ -116,6 +117,10 @@ get '/pxbackupyentrespuesta' do
   @name = "PX-Backup"
   urlapi="https://apis.9sxuen7c9q9.us-south.codeengine.appdomain.cloud"
   #urlapi="http://localhost:8080"
+
+  if diff==""
+    diff=100
+  end
 
   #parametros recibidos
   callapi="#{urlapi}/api/lvl2/pxbackupsol_pxent?almacenamientogb=#{almacenamientogb}&rsemanal=#{rsemanal}&rsemanalretencion=#{rsemanalretencion}&rdiario=#{rdiario}&rdiarioretencion=#{rdiarioretencion}&rmensual=#{rmensual}&rmensualretencion=#{rmensualretencion}&ranual=#{ranual}&ranualretencion=#{ranualretencion}&regioncluster=#{regioncluster}&countryrespaldo=#{countryrespaldo}&resiliencybackup=#{resiliencybackup}&diff=#{diff}"
