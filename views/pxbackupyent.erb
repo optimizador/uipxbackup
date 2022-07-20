@@ -69,7 +69,7 @@
                   <input type="checkbox" name="rsemanal" id="rsemanal" value=true>Si<br>
                   </td>
               <td>
-                <input type="number" id="rsemanalretencion" name="rsemanalretencion" width="5px" >  
+                <input type="number" id="rsemanalretencion" name="rsemanalretencion" width="5px" >
               </td>
             </tr>
             <tr>
@@ -78,8 +78,8 @@
                 <input type="checkbox" name="rdiario" id="rdiario" value=true>Si<br>
                 </td>
               <td>
-                <input type="number" id="rdiarioretencion" name="rdiarioretencion">   
-                %Cambios Diarios <input type="number" id="diff" name="diff" min="1" max="100" value="100" step="1" disabled> 
+                <input type="number" id="rdiarioretencion" name="rdiarioretencion">
+                %Cambios Diarios <input type="number" id="diff" name="diff" min="1" max="100" value="100" step="1" disabled>
               </td>
             </tr>
             <tr>
@@ -117,90 +117,48 @@
 
 
 </form>
-<!--%=respuestasizing%-->
+<%=respuestasizing%>
 <% if (respuestasizing != nil and respuestasizing.size>0) then%>
 <!--%=respuestasizing %-->
 
 <h3>Precio Total de la Solución</h3>
 <table  style="width:100%" align="left">
   <thead>
-    <tr>
-      <th bgcolor="#00008B" style="color: white;">Precio Mensual Total (USD)</th>
-      <th ><i>$<%= respuestasizing[4]["preciototal"].to_s %> USD</i></th>
-    </tr>
+    <th bgcolor="#00008B" style="color: white;">Servicio</th>
+    <th bgcolor="#00008B" style="color: white;">Precio Mensual (USD)</th>
+    <th bgcolor="#00008B" style="color: white;">Configuración</th>
   </thead>
-</table>
-<p> <br></p>
-<h3>Cálculo de Almacenamiento para Respaldos</h3>
 
-<table  style="width:100%" align="left">
-  <thead>
-    <tr>
-      <th bgcolor="#00008B" style="color: white;">Almacenamiento Requerido (GB)</th>
-      <th bgcolor="#00008B" style="color: white;">Almacenamiento Requerido Comprimido (GB) Ratio 2.5:1</th>
-    </tr>
-  </thead>
   <tbody>
       <tr>
-        <td><%= respuestasizing[0]["volumentotalgb"].to_s %></td>
-        <td><%= respuestasizing[0]["volumentotalcomprimidogb"].to_s %></td>
-      </tr>
-  </tbody>
-</table>
-
-<h3>Clúster IKS para solución de respaldos</h3>
-<table  style="width:100%" align="left">
-  <thead>
-    <tr>
-      <th bgcolor="#00008B" style="color: white;">Tipo Worker Node</th>
-      <th bgcolor="#00008B" style="color: white;">Tipo Infraestructura</th>
-      <th bgcolor="#00008B" style="color: white;">Workers</th>
-      <th bgcolor="#00008B" style="color: white;">Región</th>
-      <th bgcolor="#00008B" style="color: white;">Precio Mensual (USD)</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><%= respuestasizing[1]["flavor"].to_s %></td>
-        <td><%= respuestasizing[1]["infra_type"].to_s %></td>
-        <td><%= respuestasizing[1]["workers"].to_s %></td>
-        <td><%= respuestasizing[1]["region"].to_s %></td>
+        <td>Kubernetes Service</td>
         <td>$<%= respuestasizing[1]["precio"].to_s %> USD</td>
+        <td> Worker Nodes: <%= respuestasizing[1]["workers"].to_s %>, Tipo Infraestructura: <%= respuestasizing[1]["infra_type"].to_s %>, Flavor: ><%= respuestasizing[1]["flavor"].to_s %>, Región: <%= respuestasizing[1]["region"].to_s %> </td>
       </tr>
-  </tbody>
-</table>
 
-<h3>Sizing Almacenamiento de Objetos</h3>
-<table  style="width:100%" align="left">
-  <thead>
-    <tr>
-      <th bgcolor="#00008B" style="color: white;">Precio Mensual (USD)</th>
-      <th bgcolor="#00008B" style="color: white;">Nota</th>
-    </tr>
-  </thead>
-  <tbody>
       <tr>
-        <td width=20%>$<%= respuestasizing[3]["precio"].to_s %> USD</td>
-        <td><%= respuestasizing[3]["nota"].to_s %></td>
+        <td>Object Storage</td>
+        <td>$<%= respuestasizing[3]["precio"].to_s %> USD</td>
+        <td> <p><%= respuestasizing[3]["nota"].to_s %> <br></p>
+              <p>Capacidad de almacenamiento requerido: <%= respuestasizing[0]["volumentotalgb"].to_s %> <br></p>
+              <p>Almacenamiento comprimido 2.5:1: <%= respuestasizing[0]["volumentotalcomprimidogb"].to_s %> <br></p>
+
+        </td>
       </tr>
-  </tbody>
-</table>
 
-<h3>Sizing PX-Backup</h3>
-<table  style="width:100%" align="left">
-  <thead>
-    <tr>
-      <th bgcolor="#00008B" style="color: white;">Workers Node</th>
-      <th bgcolor="#00008B" style="color: white;">Precio Mensual (USD)</th>
-    </tr>
-  </thead>
-  <tbody>
       <tr>
-        <td><%= respuestasizing[2]["workers"].to_s %></td>
+        <td>PX-Backup</td>
         <td>$<%= respuestasizing[2]["precio"].to_s %> USD</td>
-      </tr>
+        <td>Worker Nodes: <%= respuestasizing[2]["workers"].to_s %></td>
+      <tr>
+
+        <tr>
+          <td>Total Solución</td>
+          <td><i>$<%= respuestasizing[4]["preciototal"].to_s %> USD</i></td>
+        <tr>
   </tbody>
 </table>
+
 <% end %>
 
 <script>
@@ -217,7 +175,7 @@
       document.getElementById("diff").value=100;
       document.getElementById("diff").disabled=true;
     }
-    
+
   };
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
