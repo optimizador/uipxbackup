@@ -1,163 +1,207 @@
-<p>Vamos a dimensionar la solución de respaldos para tú clúster de Kubernetes/Openshift, llena los parámetros de configuración</p>
+
 <form action="/pxbackupyentrespuesta" method="get">
-
-<table style="width:100%" align="left">
+<table>
   <tr>
-    <th bgcolor="#00008B" style="color: white; width:100%" colspan="3">Parámetros Respaldos PX-Backup</th>
-  </tr>
-<tr>
-  <td style="width:50%">
+    <td>
+      <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Parámetros Respaldos PX-Backup</h5>
+            </div>
 
-      <!-- tabla parametros del respaldo-->
-    <table style="width:100%" align="left">
-      <tr>
-        <th bgcolor="#00008B" style="color: white;">Parámetro</th>
-        <th bgcolor="#00008B" style="color: white;">Valor</th>
-      </tr>
-      <tr>
-        <td>Volumen a respaldar entre Persistent Volumes y archivos YAML(GB): </td>
-        <td><input type="number" id="almacenamientogb" name="almacenamientogb"></td>
-      </tr>
-      <tr>
-        <td>Usar con PX-Enterprise: </td>
-        <td><input type="checkbox" id="pxent" value="false" onClick="usaPXEnterprise(this);"></td>
-      </tr>
-      <tr>
-        <td>Región Solución de Respaldos: </td>
-        <td><select name="regioncluster" id="regioncluster">
-            <!--option value="mexico">México</option -->
-            <option value="dallas">Dallas</option>
-            <option value="wdc">Washington</option>
-        </select></td>
-      </tr>
-         <tr>
-          <td>Región Almacenamiento de Respaldos: </td>
-          <td><select name="countryrespaldo" id="countryrespaldo">
-            <!--option value="mexico">México</option -->
-            <option value="dallas">Dallas</option>
-            <option value="wdc">Washington</option>
-          </select></td>
-        </tr>
-        <tr>
-          <td>Resiliencia del respaldo: </td>
-          <td><select name="resiliencybackup" id="resiliencybackup">
-            <!-- option value="single">Single Region</option -->
-            <option value="regional">Regional</option>
-          </select></td>
-        </tr>
-      </table>
+            <div class="ibox-content">
+
+              <table class="table table-stripped">
+                <thead>
+                <tr>
+                  <th bgcolor="#00008B" style="color: white;">Parámetro</th>
+                  <th bgcolor="#00008B" style="color: white;">Valor</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Volumen a respaldar entre Persistent Volumes y archivos YAML(GB): </td>
+                  <td><input type="number" id="almacenamientogb" name="almacenamientogb"></td>
+                </tr>
+                <tr>
+                  <td>Usar con PX-Enterprise: </td>
+                  <td><input type="checkbox" id="pxent" value="false" onClick="usaPXEnterprise(this);"></td>
+                </tr>
+                <tr>
+                  <td>Región Solución de Respaldos: </td>
+                  <td><select name="regioncluster" id="regioncluster">
+                      <!--option value="mexico">México</option -->
+                      <option value="dallas">Dallas</option>
+                      <option value="wdc">Washington</option>
+                  </select></td>
+                </tr>
+                   <tr>
+                    <td>Región Almacenamiento de Respaldos: </td>
+                    <td><select name="countryrespaldo" id="countryrespaldo">
+                      <!--option value="mexico">México</option -->
+                      <option value="dallas">Dallas</option>
+                      <option value="wdc">Washington</option>
+                    </select></td>
+                  </tr>
+                  <tr>
+                    <td>Resiliencia del respaldo: </td>
+                    <td><select name="resiliencybackup" id="resiliencybackup">
+                      <!-- option value="single">Single Region</option -->
+                      <option value="regional">Regional</option>
+                    </select></td>
+                  </tr>
+                </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     </td>
+    <td>
 
 
-    <td coolspan="2" style="width:60%">
-      <table style="width:100%" align="left">
-      <tr>
-        <td colspan="2" bgcolor="#00008B" style="color: white;">Políticas de Respaldo</td>
-      </tr>
-      <tr>
-        <td colspan="2">
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Políticas de Respaldo</h5>
+            </div>
 
-          <table style="width:100%" align="left">
-            <tr>
-              <th bgcolor="#00008B" style="color: white;">Tipo Respaldo</th>
-              <th bgcolor="#00008B" style="color: white;">Incluir</th>
-              <th bgcolor="#00008B" style="color: white;">Máximo de respaldos dentro de un mes</th>
-            </tr>
-            <tr>
-              <td>Semanal</td>
-                <td>
-                  <input type="checkbox" name="rsemanal" id="rsemanal" value=true>Si<br>
-                  </td>
-              <td>
-                <input type="number" id="rsemanalretencion" name="rsemanalretencion" width="5px" >
-              </td>
-            </tr>
-            <tr>
-              <td>Diarios</td>
-              <td>
-                <input type="checkbox" name="rdiario" id="rdiario" value=true>Si<br>
-                </td>
-              <td>
-                <input type="number" id="rdiarioretencion" name="rdiarioretencion">
-                %Cambios Diarios <input type="number" id="diff" name="diff" min="1" max="100" value="100" step="1" disabled>
-              </td>
-            </tr>
-            <tr>
-              <td>Mensuales</td>
-              <td>
-                <input type="checkbox" name="rmensual" id="rmensual" value=true>Si<br>
-                </td>
-              <td>
-                <input type="number" id="rmensualretencion" name="rmensualretencion">
-              </td>
-            </tr>
-            <tr>
-              <td>Anuales</td>
-              <td>
-                <input type="checkbox" name="ranual" id="ranual" value=true>Si<br>
-                </td>
-              <td>
-                <input type="number" id="ranualretencion" name="ranualretencion">
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </td>
+            <div class="ibox-content">
 
+              <table class="table table-stripped">
+                <thead>
+                <tr>
+                    <th bgcolor="#00008B" style="color: white;">Tipo Respaldo</th>
+                    <th bgcolor="#00008B" style="color: white;">Incluir</th>
+                    <th bgcolor="#00008B" style="color: white;">Máximo de respaldos dentro de un mes</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Semanal</td>
+                      <td>
+                        <input type="checkbox" name="rsemanal" id="rsemanal" value=true>Si<br>
+                        </td>
+                    <td>
+                      <input type="number" id="rsemanalretencion" name="rsemanalretencion" width="5px" >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Diarios</td>
+                    <td>
+                      <input type="checkbox" name="rdiario" id="rdiario" value=true>Si<br>
+                      </td>
+                    <td>
+                      <input type="number" id="rdiarioretencion" name="rdiarioretencion">
+                      %Cambios Diarios <input type="number" id="diff" name="diff" min="1" max="100" value="100" step="1" disabled>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Mensuales</td>
+                    <td>
+                      <input type="checkbox" name="rmensual" id="rmensual" value=true>Si<br>
+                      </td>
+                    <td>
+                      <input type="number" id="rmensualretencion" name="rmensualretencion">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Anuales</td>
+                    <td>
+                      <input type="checkbox" name="ranual" id="ranual" value=true>Si<br>
+                      </td>
+                    <td>
+                      <input type="number" id="ranualretencion" name="ranualretencion">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <center><button type="submit">Quiero mi dimensionamiento</button></center>
+    </td>
+  </tr>
 </table>
-
-
-
-<p>
-<button type="submit">Quiero mi dimensionamiento</button>
-</p>
-
-
-
 </form>
+
 <!--%=respuestasizing %-->
 <% if (respuestasizing != nil and respuestasizing.size>0) then%>
 <!--%=respuestasizing %-->
 
-<h3>Precio Total de la Solución</h3>
-<table  style="width:100%" align="left">
-  <thead>
-    <th bgcolor="#00008B" style="color: white;">Servicio</th>
-    <th bgcolor="#00008B" style="color: white;">Precio Mensual (USD)</th>
-    <th bgcolor="#00008B" style="color: white;">Configuración</th>
-  </thead>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Solución de Respaldos para Kubernetes/Openshift</h5>
+        </div>
 
-  <tbody>
-      <tr>
-        <td>Kubernetes Service</td>
-        <td>$<%= respuestasizing[1]["precio"].to_s %> USD</td>
-        <td> Worker Nodes: <%= respuestasizing[1]["workers"].to_s %>, Tipo Infraestructura: <%= respuestasizing[1]["infra_type"].to_s %>, Flavor: ><%= respuestasizing[1]["flavor"].to_s %>, Región: <%= respuestasizing[1]["region"].to_s %> </td>
-      </tr>
+        <div class="ibox-content">
 
-      <tr>
-        <td>Object Storage</td>
-        <td>$<%= respuestasizing[3]["precio"].to_s %> USD</td>
-        <td> <p><%= respuestasizing[3]["nota"].to_s %> <br></p>
-              <p>Capacidad de almacenamiento requerido: <%= respuestasizing[0]["volumentotalgb"].to_s %> <br></p>
-              <p>Almacenamiento comprimido 2.5:1: <%= respuestasizing[0]["volumentotalcomprimidogb"].to_s %> <br></p>
+          <table class="table table-stripped">
+              <thead>
+                <th bgcolor="#00008B" style="color: white;">Servicio</th>
+                <th bgcolor="#00008B" style="color: white;">Precio Mensual (USD)</th>
+                <th bgcolor="#00008B" style="color: white;">Configuración</th>
+              </thead>
 
-        </td>
-      </tr>
+              <tbody>
+                  <tr>
+                    <td>Kubernetes Service</td>
+                    <td>$<%= respuestasizing[1]["precio"].to_s %> USD</td>
+                    <td> Worker Nodes: <%= respuestasizing[1]["workers"].to_s %>, Tipo Infraestructura: <%= respuestasizing[1]["infra_type"].to_s %>, Flavor: ><%= respuestasizing[1]["flavor"].to_s %>, Región: <%= respuestasizing[1]["region"].to_s %> </td>
+                  </tr>
 
-      <tr>
-        <td>PX-Backup</td>
-        <td>$<%= respuestasizing[2]["precio"].to_s %> USD</td>
-        <td>Worker Nodes: <%= respuestasizing[2]["workers"].to_s %></td>
-      <tr>
+                  <tr>
+                    <td>Object Storage</td>
+                    <td>$<%= respuestasizing[3]["precio"].to_s %> USD</td>
+                    <td> <p><%= respuestasizing[3]["nota"].to_s %> <br></p>
+                          <p>Capacidad de almacenamiento requerido: <%= respuestasizing[0]["volumentotalgb"].to_s %> <br></p>
+                          <p>Almacenamiento comprimido 2.5:1: <%= respuestasizing[0]["volumentotalcomprimidogb"].to_s %> <br></p>
 
-        <tr>
-          <td>Total Solución</td>
-          <td><i>$<%= respuestasizing[4]["preciototal"].to_s %> USD</i></td>
-        <tr>
-  </tbody>
-</table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>PX-Backup</td>
+                    <td>$<%= respuestasizing[2]["precio"].to_s %> USD</td>
+                    <td>Worker Nodes: <%= respuestasizing[2]["workers"].to_s %></td>
+                  <tr>
+
+                    <tr>
+                      <td>Total Solución</td>
+                      <td><i>$<%= respuestasizing[4]["preciototal"].to_s %> USD</i></td>
+                    <tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% end %>
 
